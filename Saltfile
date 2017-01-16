@@ -1,0 +1,6 @@
+salt-ssh:
+  config_dir: config
+  identities_only: True
+
+salt-call:
+  config_dir: config

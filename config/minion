@@ -1,0 +1,11 @@
+# vim: ft=yaml:
+id: local
+file_client: local
+minion_id_caching: False
+root_dir: ./
+file_roots:
+  base:
+    - states
+pillar_roots:
+  base:
+    - pillar
