@@ -3,3 +3,22 @@
 if ! [ -f config/roster ]; then
   cp config/roster.example config/roster
 fi
+if ! [ -f config/master ]; then
+  cp config/master.example config/master
+fi
+if ! [ -f config/minion ]; then
+  cp config/minion.example config/minion
+fi
+
+if [ -f /System/Library/LaunchDaemons/com.apple.atrun.plist ]; then
+  if ! launchctl list com.apple.atrun &> /dev/null; then
+    echo 'Enable com.apple.atrun...'
+    launchctl load -w /System/Library/LaunchDaemons/com.apple.atrun.plist
+  fi
+
+  if grep -e '^user: ' config/minion &> /dev/null; then
+    /usr/bin/sed -i '' -e "s/^user: .*/user: '$USER'/" config/minion
+  else
+    echo "user = '$USER'"  >> config/minion
+  fi
+fi
